@@ -127,20 +127,21 @@ public class EncryptController {
         return false;
     }
 
-    // Prints a prime pair with given sum
+    // Prints a prime pair with given product
     static int[] findPrimePair(int n) {
         // Generating primes using Sieve
         boolean[] isPrime = new boolean[n + 1];
         int[] result = new int[2];
         SieveOfEratosthenes(n, isPrime);
 
-        // Traversing all numbers to find first
-        // pair
+        // Traversing all numbers to find first pair
         for (int i = 0; i < n; i++) {
-            if (isPrime[i] && isPrime[n - i]) {
-                result[0] = i;
-                result[1] = (n - i);
-                return result;
+            for (int j = 0; j < n; j++) {
+                if (isPrime[i] && isPrime[j] && i != j && (i*j) == n) {
+                        result[0] = i;
+                        result[1] = j;
+                        return result;
+                }
             }
         }
 
