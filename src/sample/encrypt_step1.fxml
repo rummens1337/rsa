@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EncryptController">
+   <children>
+      <Button layoutX="225.0" layoutY="320.0" mnemonicParsing="false" onAction="#switchStep2" prefHeight="26.0" prefWidth="150.0" text="Step 2" />
+      <Text layoutX="74.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The prime numbers P and Q have been auto-filled based on the calculations of the number you have entered in the previous section. However, if you wish to change them, feel free to do so.. " wrappingWidth="452.7294921875" />
+      <Text layoutX="221.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="P" />
+      <Text layoutX="219.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Q" />
+      <TextField fx:id="txtP" layoutX="239.0" layoutY="159.0" prefHeight="26.0" prefWidth="130.0" />
+      <TextField fx:id="txtQ" layoutX="239.0" layoutY="195.0" prefHeight="26.0" prefWidth="130.0" />
+   </children>
+</Pane>
