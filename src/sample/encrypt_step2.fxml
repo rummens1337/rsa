@@ -11,6 +11,6 @@
       <Text fx:id="txtE" layoutX="250.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="99.13671875" />
       <TextField fx:id="txtM" layoutX="226.0" layoutY="96.0" />
       <Text layoutX="84.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message to be encoded:" />
-      <Text fx:id="txtEncoded" layoutX="187.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="225.13671875" />
+      <Text fx:id="txtEncoded" layoutX="187.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="225.13671875" />
    </children>
 </Pane>
