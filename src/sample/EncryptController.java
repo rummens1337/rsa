@@ -37,10 +37,14 @@ public class EncryptController {
             fxmlLoader.setLocation(getClass().getResource("encrypt_step1.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
+
             EncryptController controller = fxmlLoader.getController();
             controller.setP(primes[0]);
             controller.setQ(primes[1]);
             controller.setN(number);
+            controller.txtP.setText(String.valueOf(controller.getP()));
+            controller.txtQ.setText(String.valueOf(controller.getQ()));
+
             stage.setTitle("Encryption - Step 1");
             stage.setScene(scene);
             stage.show();
@@ -48,7 +52,6 @@ public class EncryptController {
             System.out.println("P is " + primes[0]);
             System.out.println("Q is " + primes[1]);
             System.out.println("Amount of time busy finding p and q: " + executionTime);
-
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window - Step 1.", e);
