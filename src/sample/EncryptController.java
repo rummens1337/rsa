@@ -4,20 +4,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class EncryptController {
 
     @FXML private TextField txtNumber;
     @FXML private TextField txtP;
     @FXML private TextField txtQ;
+    @FXML private Text txtE;
+    @FXML private TextField txtM;
+    @FXML private Text txtEncoded;
+
     private int p = 0;
     private int q = 0;
     private int n = 0;
+    private int e = 0;
 
     /**
      * Switch the screen to step 1.
@@ -82,6 +92,12 @@ public class EncryptController {
             fxmlLoader.setLocation(getClass().getResource("encrypt_step2.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
+
+            EncryptController controller = fxmlLoader.getController();
+            controller.setN(n);
+            controller.setE(e);
+            controller.txtE.setText(String.format("e is: %d", e));
+
             stage.setTitle("Encryption - Step 2");
             stage.setScene(scene);
             stage.show();
@@ -99,15 +115,45 @@ public class EncryptController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("encrypt_step3.fxml"));
+
+            String m = txtM.getText();
+
+            // Encrypt m, then join encrypted values by ',' and show it as string
+            List<BigInteger> encrypted = encrypt(m);
+            String c = encrypted
+                    .stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(","));
+
+            txtEncoded.setText("Message after encryption is:\n " + c);
+
+            // TODO: Move txtEncoded to step 3 and display `c` there
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
-            stage.setTitle("Encryption - Step 3");
-            stage.setScene(scene);
-            stage.show();
+//            stage.setTitle("Encryption - Step 3");
+//            stage.setScene(scene);
+//            stage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window - Step 3.", e);
         }
+    }
+
+    public List<BigInteger> encrypt(String m) {
+        final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
+        // Convert each character of m to its index in the alphabet
+        List<BigInteger> mAsBigInts = Arrays
+                .stream(m.split(""))
+                .map(String::toLowerCase)
+                .map(c -> BigInteger.valueOf(ALPHABET.indexOf(c)))
+                .collect(Collectors.toList());
+
+        // Encrypt each value of mAsBigInts like: value -> ((value ^ e) % n)
+        return mAsBigInts
+                .stream()
+                .map(value -> value.pow(e).mod(BigInteger.valueOf(n)))
+                .collect(Collectors.toList());
     }
 
     // Generate all prime numbers less than n.
@@ -187,5 +233,13 @@ public class EncryptController {
 
     public void setN(int n) {
         this.n = n;
+    }
+
+    public int getE() {
+        return e;
+    }
+
+    public void setE(int e) {
+        this.e = e;
     }
 }
