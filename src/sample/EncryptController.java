@@ -31,6 +31,8 @@ public class EncryptController {
             long end = System. currentTimeMillis();
             long executionTime = end - start;
 
+            if (primes == null)  return;
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("encrypt_step1.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
@@ -145,7 +147,9 @@ public class EncryptController {
             }
         }
 
-        return result;
+        System.out.println("No two distinct primes could be with a product of " + n);
+
+        return null;
     }
 
     int recursiveGCD(int a, int b) {
