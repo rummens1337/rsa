@@ -140,13 +140,11 @@ public class EncryptController {
     }
 
     public List<BigInteger> encrypt(String m) {
-        final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-
         // Convert each character of m to its index in the alphabet
         List<BigInteger> mAsBigInts = Arrays
                 .stream(m.split(""))
                 .map(String::toLowerCase)
-                .map(c -> BigInteger.valueOf(ALPHABET.indexOf(c)))
+                .map(c -> BigInteger.valueOf(c.hashCode()))
                 .collect(Collectors.toList());
 
         // Encrypt each value of mAsBigInts like: value -> ((value ^ e) % n)
