@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DecryptController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DecryptController">
    <children>
-      <Button layoutX="101.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Encrypt" />
-      <Button layoutX="343.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Decrypt" />
+      <Button layoutX="225.0" layoutY="320.0" mnemonicParsing="false" onAction="#switchStep1" prefHeight="26.0" prefWidth="150.0" text="Step 1" />
+      <Text layoutX="221.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N" />
+      <Text layoutX="219.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E" />
+      <TextField fx:id="txtN" layoutX="239.0" layoutY="159.0" prefHeight="26.0" prefWidth="130.0" />
+      <TextField fx:id="txtE" layoutX="239.0" layoutY="195.0" prefHeight="26.0" prefWidth="130.0" />
    </children>
 </Pane>
