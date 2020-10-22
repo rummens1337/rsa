@@ -144,7 +144,7 @@ public class EncryptController {
         List<BigInteger> mAsBigInts = Arrays
                 .stream(m.split(""))
                 .map(String::toLowerCase)
-                .map(c -> BigInteger.valueOf(c.hashCode()))
+                .map(c -> BigInteger.valueOf((int) c.charAt(0)))
                 .collect(Collectors.toList());
 
         // Encrypt each value of mAsBigInts like: value -> ((value ^ e) % n)
