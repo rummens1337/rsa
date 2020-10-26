@@ -26,7 +26,7 @@ public class EncryptController {
     private long p = 0;
     private long q = 0;
     private long n = 0;
-    private int e = 0;
+    private long e = 0;
 
     /**
      * Switch the screen to step 1.
@@ -76,16 +76,9 @@ public class EncryptController {
     public void switchStep2() {
         try {
             System.out.println(this.p + " " + this.q);
-            long phiN = (this.p - 1) * (this.q - 1);
-            int e  = 0;
+            long e = calculateE();
 
-            // Calculate E
-            for (int i = 2; i < phiN; i++) {
-                if(recursiveGCD(i, phiN) == 1 && recursiveGCD(i, this.n) == 1){
-                    e = i;
-                    System.out.println("e is " + e);
-                }
-            }
+            System.out.println("E is: " + e);
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("encrypt_step2.fxml"));
@@ -149,7 +142,7 @@ public class EncryptController {
         // Encrypt each value of mAsBigInts like: value -> ((value ^ e) % n)
         return mAsBigInts
                 .stream()
-                .map(value -> value.pow(e).mod(BigInteger.valueOf(n)))
+                .map(value -> value.pow((int) e).mod(BigInteger.valueOf(n)))
                 .collect(Collectors.toList());
     }
 
@@ -172,6 +165,22 @@ public class EncryptController {
         System.out.println("No two distinct primes could be found with a product of " + n);
 
         return null;
+    }
+
+    /**
+     * Calculates a value whose GCD with phiN and n is 1
+     * @return A value whose GCD with phiN and n is 1, or -1 if no such value could be found
+     */
+    long calculateE() {
+        long phiN = (this.p - 1) * (this.q - 1);
+
+        for (long i = 2; i < phiN; i++) {
+            if(recursiveGCD(i, phiN) == 1 && recursiveGCD(i, this.n) == 1){
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     long recursiveGCD(long a, long b) {
@@ -208,11 +217,11 @@ public class EncryptController {
         this.n = n;
     }
 
-    public int getE() {
+    public long getE() {
         return e;
     }
 
-    public void setE(int e) {
+    public void setE(long e) {
         this.e = e;
     }
 }
