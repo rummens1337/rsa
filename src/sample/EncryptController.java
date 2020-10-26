@@ -9,8 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -24,9 +23,9 @@ public class EncryptController {
     @FXML private TextField txtM;
     @FXML private Text txtEncoded;
 
-    private int p = 0;
-    private int q = 0;
-    private int n = 0;
+    private long p = 0;
+    private long q = 0;
+    private long n = 0;
     private int e = 0;
 
     /**
@@ -35,9 +34,9 @@ public class EncryptController {
     @FXML
     public void switchStep1() {
         try {
-            int number = Integer.parseInt(txtNumber.getText());
+            long number = Long.parseLong(txtNumber.getText());
             long start = System. currentTimeMillis();
-            int[] primes = findPrimePair(number);
+            long[] primes = findPrimePair(BigInteger.valueOf(number));
             long end = System. currentTimeMillis();
             long executionTime = end - start;
 
@@ -77,7 +76,7 @@ public class EncryptController {
     public void switchStep2() {
         try {
             System.out.println(this.p + " " + this.q);
-            int phiN = (this.p - 1) * (this.q - 1);
+            long phiN = (this.p - 1) * (this.q - 1);
             int e  = 0;
 
             // Calculate E
@@ -154,52 +153,28 @@ public class EncryptController {
                 .collect(Collectors.toList());
     }
 
-    // Generate all prime numbers less than n.
-    static boolean SieveOfEratosthenes(int n, boolean isPrime[]) {
-        // Initialize all entries of boolean
-        // array as true. A value in isPrime[i]
-        // will finally be false if i is Not a
-        // prime, else true bool isPrime[n+1];
-        isPrime[0] = isPrime[1] = false;
-        for (int i = 2; i <= n; i++)
-            isPrime[i] = true;
+    /**
+     * Attempts to find two distinct primes whose product is equal to the given value n
+     * @param n Desired product
+     * @return Array containing two primes whose product is equal to n, or null if no such primes could be found
+     */
+    static long[] findPrimePair(BigInteger n) {
+        for (BigInteger p = BigInteger.valueOf(2L); (p.compareTo(n) < 0); p = p.nextProbablePrime()) {
+            if (n.mod(p).equals(BigInteger.ZERO)) {
+                BigInteger q = n.divide(p);
 
-        for (int p = 2; p * p <= n; p++) {
-            // If isPrime[p] is not changed,
-            // then it is a prime
-            if (isPrime[p]) {
-                // Update all multiples of p
-                for (int i = p * p; i <= n; i += p)
-                    isPrime[i] = false;
-            }
-        }
-        return false;
-    }
-
-    // Prints a prime pair with given product
-    static int[] findPrimePair(int n) {
-        // Generating primes using Sieve
-        boolean[] isPrime = new boolean[n + 1];
-        int[] result = new int[2];
-        SieveOfEratosthenes(n, isPrime);
-
-        // Traversing all numbers to find first pair
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (isPrime[i] && isPrime[j] && i != j && (i*j) == n) {
-                        result[0] = i;
-                        result[1] = j;
-                        return result;
+                if (!p.equals(q) && q.isProbablePrime(100)) {
+                    return new long[]{p.longValue(), q.longValue()};
                 }
             }
         }
 
-        System.out.println("No two distinct primes could be with a product of " + n);
+        System.out.println("No two distinct primes could be found with a product of " + n);
 
         return null;
     }
 
-    int recursiveGCD(int a, int b) {
+    long recursiveGCD(long a, long b) {
         if (b == 0) {
             return a;
         }
@@ -209,27 +184,27 @@ public class EncryptController {
         return recursiveGCD(b, a % b);
     }
 
-    public int getP() {
+    public long getP() {
         return p;
     }
 
-    public void setP(int p) {
+    public void setP(long p) {
         this.p = p;
     }
 
-    public int getQ() {
+    public long getQ() {
         return q;
     }
 
-    public void setQ(int q) {
+    public void setQ(long q) {
         this.q = q;
     }
 
-    public int getN() {
+    public long getN() {
         return n;
     }
 
-    public void setN(int n) {
+    public void setN(long n) {
         this.n = n;
     }
 
