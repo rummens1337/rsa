@@ -2,10 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DecryptController">
    <children>
-      <Button layoutX="101.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Encrypt" />
-      <Button layoutX="343.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Decrypt" />
+      <TextField fx:id="txtMsg" layoutX="14.0" layoutY="187.0" prefHeight="26.0" prefWidth="576.0" />
+      <Text layoutX="235.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decrypted message:" />
    </children>
 </Pane>

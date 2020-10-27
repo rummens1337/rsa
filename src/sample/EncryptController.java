@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,12 +17,20 @@ import java.util.stream.Collectors;
 
 public class EncryptController {
 
-    @FXML private TextField txtNumber;
-    @FXML private TextField txtP;
-    @FXML private TextField txtQ;
-    @FXML private Text txtE;
-    @FXML private TextField txtM;
-    @FXML private Text txtEncoded;
+    @FXML
+    private TextField txtNumber;
+    @FXML
+    private TextField txtP;
+    @FXML
+    private TextField txtQ;
+    @FXML
+    private TextField txtM;
+    @FXML
+    private Text txtE;
+    @FXML
+    private TextArea txtEncrypt;
+    @FXML
+    TextField txtTime;
 
     private long p = 0;
     private long q = 0;
@@ -34,39 +43,37 @@ public class EncryptController {
     @FXML
     public void switchStep1() {
         try {
+            // Retrieve input from user interface and calculate.
             long number = Long.parseLong(txtNumber.getText());
-            long start = System. currentTimeMillis();
+            long start = System.currentTimeMillis();
             long[] primes = findPrimePair(BigInteger.valueOf(number));
-            long end = System. currentTimeMillis();
+            long end = System.currentTimeMillis();
             long executionTime = end - start;
+            if (primes == null) return;
 
-            if (primes == null)  return;
-
+            // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("encrypt_step1.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
 
+            // Set variables for next screen
             EncryptController controller = fxmlLoader.getController();
             controller.setP(primes[0]);
             controller.setQ(primes[1]);
             controller.setN(number);
+            controller.txtTime.setText(Long.toString(executionTime));
             controller.txtP.setText(String.valueOf(controller.getP()));
             controller.txtQ.setText(String.valueOf(controller.getQ()));
 
+            // Switch to next screen.
             stage.setTitle("Encryption - Step 1");
             stage.setScene(scene);
             stage.show();
-
-            System.out.println("P is " + primes[0]);
-            System.out.println("Q is " + primes[1]);
-            System.out.println("Amount of time busy finding p and q: " + executionTime);
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window - Step 1.", e);
         }
-
-
     }
 
     /**
@@ -75,21 +82,21 @@ public class EncryptController {
     @FXML
     public void switchStep2() {
         try {
-            System.out.println(this.p + " " + this.q);
             long e = calculateE();
 
-            System.out.println("E is: " + e);
-
+            // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("encrypt_step2.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
 
+            // Set variables for next screen
             EncryptController controller = fxmlLoader.getController();
             controller.setN(n);
             controller.setE(e);
             controller.txtE.setText(String.format("e is: %d", e));
 
+            // Switch to next screen.
             stage.setTitle("Encryption - Step 2");
             stage.setScene(scene);
             stage.show();
@@ -105,10 +112,14 @@ public class EncryptController {
     @FXML
     public void switchStep3() {
         try {
+            // Retrieve input from user interface.
+            String m = txtM.getText();
+
+            // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("encrypt_step3.fxml"));
-
-            String m = txtM.getText();
+            Scene scene = new Scene(fxmlLoader.load(), 630, 400);
+            Stage stage = new Stage();
 
             // Encrypt m, then join encrypted values by ',' and show it as string
             List<BigInteger> encrypted = encrypt(m);
@@ -117,14 +128,14 @@ public class EncryptController {
                     .map(String::valueOf)
                     .collect(Collectors.joining(","));
 
-            txtEncoded.setText("Message after encryption is:\n " + c);
+            // Set variables for next screen
+            EncryptController controller = fxmlLoader.getController();
+            controller.txtEncrypt.setText(c);
 
-            // TODO: Move txtEncoded to step 3 and display `c` there
-            Scene scene = new Scene(fxmlLoader.load(), 630, 400);
-            Stage stage = new Stage();
-//            stage.setTitle("Encryption - Step 3");
-//            stage.setScene(scene);
-//            stage.show();
+            // Switch to next screen.
+            stage.setTitle("Encryption - Step 3");
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window - Step 3.", e);
@@ -148,6 +159,7 @@ public class EncryptController {
 
     /**
      * Attempts to find two distinct primes whose product is equal to the given value n
+     *
      * @param n Desired product
      * @return Array containing two primes whose product is equal to n, or null if no such primes could be found
      */
@@ -169,13 +181,14 @@ public class EncryptController {
 
     /**
      * Calculates a value whose GCD with phiN and n is 1
+     *
      * @return A value whose GCD with phiN and n is 1, or -1 if no such value could be found
      */
     long calculateE() {
         long phiN = (this.p - 1) * (this.q - 1);
 
         for (long i = 2; i < phiN; i++) {
-            if(recursiveGCD(i, phiN) == 1 && recursiveGCD(i, this.n) == 1){
+            if (recursiveGCD(i, phiN) == 1 && recursiveGCD(i, this.n) == 1) {
                 return i;
             }
         }

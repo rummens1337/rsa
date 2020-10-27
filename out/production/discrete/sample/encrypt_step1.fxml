@@ -12,5 +12,7 @@
       <Text layoutX="219.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Q" />
       <TextField fx:id="txtP" layoutX="239.0" layoutY="159.0" prefHeight="26.0" prefWidth="130.0" />
       <TextField fx:id="txtQ" layoutX="239.0" layoutY="195.0" prefHeight="26.0" prefWidth="130.0" />
+      <Text layoutX="131.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount of time busy finding p and q in milliseconds" />
+      <TextField fx:id="txtTime" layoutX="215.0" layoutY="267.0" />
    </children>
 </Pane>
