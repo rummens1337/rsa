@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EncryptController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EncryptController">
    <children>
       <Button layoutX="225.0" layoutY="320.0" mnemonicParsing="false" onAction="#switchStep1" prefHeight="26.0" prefWidth="150.0" text="Step 1" />
-      <Text layoutX="170.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter a number to calculate two primes" wrappingWidth="260.7294921875" />
       <TextField fx:id="txtNumber" layoutX="222.0" layoutY="187.0" prefHeight="26.0" prefWidth="157.0" promptText="Enter a number here" />
+      <Text layoutX="204.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N:" />
    </children>
 </Pane>
