@@ -23,7 +23,7 @@ public class StartController {
     public void switchEncrypt(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("encrypt.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/encrypt.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
             stage.setTitle("Encryption");
@@ -42,7 +42,7 @@ public class StartController {
     public void switchDecrypt(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("decrypt.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/decrypt.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
             stage.setTitle("Decryption");

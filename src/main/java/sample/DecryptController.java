@@ -42,7 +42,7 @@ public class DecryptController {
 
             // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("decrypt_step1.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/decrypt_step1.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
             DecryptController controller = fxmlLoader.getController();
@@ -75,7 +75,7 @@ public class DecryptController {
         try {
             // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("decrypt_step2.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/decrypt_step2.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
 

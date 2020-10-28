@@ -54,7 +54,7 @@ public class EncryptController {
 
             // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("encrypt_step1.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/encrypt_step1.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
 
@@ -87,7 +87,7 @@ public class EncryptController {
 
             // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("encrypt_step2.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/encrypt_step2.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
 
@@ -118,7 +118,7 @@ public class EncryptController {
 
             // Set all scene variables and get resources.
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("encrypt_step3.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/encrypt_step3.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 630, 400);
             Stage stage = new Stage();
 
