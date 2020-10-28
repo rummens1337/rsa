@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,8 +47,11 @@ public class DecryptController {
             Stage stage = new Stage();
             DecryptController controller = fxmlLoader.getController();
 
+            long d = calculateD(this.n, this.e);
+            if (d == -1) return;
+
             // Set variables for next screen
-            calculateD(this.n, this.e);
+            this.d = d;
             controller.setN(this.n);
             controller.setE(this.e);
             controller.setD(this.d);
@@ -97,13 +101,16 @@ public class DecryptController {
      * @param n The number n (product of two primes).
      * @param e The encryption key e
      */
-    private void calculateD(long n, long e) {
+    private long calculateD(long n, long e) {
         BigInteger E = new BigInteger(String.valueOf(e));
         long[] primes = findPrimePair(BigInteger.valueOf(n));
+
+        if (primes == null) return -1;
+
         long phiN = (primes[0] - 1) * (primes[1] - 1);
         BigInteger PHIN = new BigInteger(String.valueOf(phiN));
 
-        this.d = Long.parseLong(E.modInverse(PHIN).toString());
+        return Long.parseLong(E.modInverse(PHIN).toString());
     }
 
     /**
@@ -145,7 +152,12 @@ public class DecryptController {
             }
         }
 
-        System.out.println("No two distinct primes could be found with a product of " + n);
+        String errorMsg = "No two distinct primes could be found with a product of " + n;
+        System.out.println(errorMsg);
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(errorMsg);
+        alert.show();
 
         return null;
     }

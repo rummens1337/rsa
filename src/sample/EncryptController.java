@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -174,7 +175,11 @@ public class EncryptController {
             }
         }
 
-        System.out.println("No two distinct primes could be found with a product of " + n);
+        String errorMsg = "No two distinct primes could be found with a product of " + n;
+        System.out.println(errorMsg);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(errorMsg);
+        alert.show();
 
         return null;
     }
